@@ -2,6 +2,9 @@ package example
 
 import scala.annotation.tailrec
 
+/**
+	* Lists example for the scala coursera course
+	*/
 
 object Lists
 {
