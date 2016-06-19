@@ -28,10 +28,11 @@ class FunSetSuite extends FunSuite
   /**
     * Tests are written using the "test" operator and the "assert" method.
     */
-  // test("string take") {
-  //   val message = "hello, world"
-  //   assert(message.take(5) == "hello")
-  // }
+	test("string take")
+	{
+		val message = "hello, world"
+		assert(message.take(5) == "hello")
+	}
 
   /**
     * For ScalaTest tests, there exists a special equality operator "===" that
@@ -154,22 +155,35 @@ class FunSetSuite extends FunSuite
     }
   }
 
+  test("test exists")
+  {
+    new TestSets
+		{
+			val p1 = (x: Int) => x == 1
+			val p2 = (x: Int) => x == 2
+			val p3 = (x: Int) => x == 3
+			val p4 = (x: Int) => x == 4
 
-//  test("Forall")
-//  {
-//    new TestSets
-//    {
-//      val p1 = (x: Int) => x > 0
-//      val p2 = (x: Int) => x > -bound
-//      val p3 = (x: Int) => x >= -bound
-//
-//      val s = (x: Int) => true
-//      assert(!forall(s, p1), "forall negative value")
-//      assert(!forall(s, p2), "forall boundaries")
-//      assert(forall(s1, p1), "forall subset")
-//      assert(forall(s, p3), "forall all")
-//    }
-//  }
+			val s4 = union(union(s1, s2), s3)
+			assert(exists(s4, p1) === true, "1 exists in set of 1")
+			assert(exists(s4, p2) === true, "2 exists in set of 2")
+			assert(exists(s4, p3) === true, "3 exists in set of 3")
+			assert(exists(s4, p4) === false, "4 doe not exist in set")
+		}
+  }
 
+  test("mapping values")
+  {
+    new TestSets
+		{
+			val map1 = map(s1, _ => 3)
+			val map2 = map(s2, _ => 1)
+			val map3 = map(s3, _ => 2)
 
+			assert(contains(map1, 3) === true, "mapped 1 tp 3")
+			assert(contains(map2, 1) === true, "mapped 2 to 1")
+			assert(contains(map3, 2) === true, "mapped 3 to 2")
+			assert(contains(map1, 1) === false, "1 does not map to 1")
+		}
+  }
 }
