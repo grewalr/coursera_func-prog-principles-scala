@@ -1,9 +1,7 @@
 package objsets
 
-import org.scalatest.FunSuite
-
-
 import org.junit.runner.RunWith
+import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
@@ -39,8 +37,10 @@ class TweetSetSuite extends FunSuite {
     }
   }
 
-  test("filter: 20 on set5") {
-    new TestSets {
+  test("filter: 20 on set5")
+  {
+    new TestSets
+    {
       assert(size(set5.filter(tw => tw.retweets == 20)) === 2)
     }
   }
@@ -53,7 +53,7 @@ class TweetSetSuite extends FunSuite {
 
   test("union: with empty set (1)") {
     new TestSets {
-      assert(size(set5.union(set1)) === 4)
+      assert(size(set5.union(set2)) === 4)
     }
   }
 
