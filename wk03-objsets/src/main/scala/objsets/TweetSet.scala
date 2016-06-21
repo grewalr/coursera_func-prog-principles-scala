@@ -122,11 +122,12 @@ class Empty extends TweetSet
 	def remove(tweet: Tweet): TweetSet = this
 
 	def foreach(f: Tweet => Unit): Unit = ()
+
+  override def union(that: TweetSet): TweetSet = that
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet
 {
-
 	def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet =
 		if(p(elem)) left.filterAcc(p, right.filterAcc(p, acc.incl(elem)))
 		else left.filterAcc(p, right.filterAcc(p, acc))
@@ -159,7 +160,9 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet
 		right.foreach(f)
 	}
 
-  override def union(that: TweetSet): TweetSet = filter(x => this.contains(elem) && that.contains(elem))
+  override def union(that: TweetSet): TweetSet = ((left union right) union that) incl elem
+
+  override def mostRetweeted: Tweet = ???
 }
 
 trait TweetList
