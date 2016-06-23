@@ -10,7 +10,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet
 		if(p(elem)) left.filterAcc(p, right.filterAcc(p, acc.incl(elem)))
 		else left.filterAcc(p, right.filterAcc(p, acc))
 
-	/**
+  /**
 		* The following methods are already implemented
 		*/
 
@@ -38,17 +38,13 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet
 		right.foreach(f)
 	}
 
-  override def union(that: TweetSet): TweetSet = ((left union right) union that) incl elem
+  override def union(that: TweetSet): TweetSet = left.union(right.union(that.incl(elem)))
 
   override def isEmpty = false
 
   override def mostRetweeted: Tweet =
   {
-    if (left.isEmpty && right.isEmpty) elem
-    else if (left.isEmpty && !right.isEmpty) maxRetweets(right.mostRetweeted)
-    else if (!left.isEmpty && right.isEmpty) maxRetweets(left.mostRetweeted)
-    else maxRetweets(elem)
+    val morePopular = right.union(left).filter(p => p.retweets > elem.retweets)
+    if (morePopular.isEmpty) elem else morePopular.mostRetweeted
   }
-
-  private def maxRetweets(maxElem: Tweet): Tweet = if (maxElem.retweets > elem.retweets) maxElem else elem
 }

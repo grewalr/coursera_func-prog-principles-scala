@@ -23,15 +23,4 @@ class Empty extends TweetSet
   override def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
 
   override def isEmpty = true
-
-  /**
-    * Returns a list containing all tweets of this set, sorted by retweet count
-    * in descending order. In other words, the head of the resulting list should
-    * have the highest retweet count.
-    *
-    * Hint: the method `remove` on TweetSet will be very useful.
-    * Question: Should we implment this method here, or should it remain abstract
-    * and be implemented in the subclasses?
-    */
-  override def descendingByRetweet: TweetList = Nil
 }
