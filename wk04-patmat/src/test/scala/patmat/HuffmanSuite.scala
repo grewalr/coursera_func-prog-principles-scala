@@ -25,6 +25,9 @@ class HuffmanSuite extends FunSuite
     {
       assert(weight(t1) === 5)
       assert(weight(t3) === 16)
+      assert(weight(makeCodeTree(t1, t2)) === 14)
+      assert(weight(makeCodeTree(t1, t3)) === 21)
+      assert(weight(makeCodeTree(t2, t3)) === 25)
     }
   }
 
@@ -35,19 +38,11 @@ class HuffmanSuite extends FunSuite
     {
       assert(chars(t2) === List('a', 'b', 'd'))
       assert(chars(t3) === List('a', 'c', 'd'))
+      assert(chars(makeCodeTree(t1, t2)) === List('a', 'b', 'a', 'b', 'd'))
+      assert(chars(makeCodeTree(t1, t3)) === List('a', 'b', 'a', 'c', 'd'))
+      assert(chars(makeCodeTree(t2, t3)) === List('a', 'b', 'd', 'a', 'c', 'd'))
     }
   }
-
-  test("makeCodeTree")
-  {
-
-    new TestTrees
-    {
-      println(makeCodeTree(t1, t2).toString)
-//      assert(chars(t2) === List('a', 'b', 'd'))
-    }
-  }
-
 
   test("string2chars(\"hello, world\")")
   {
