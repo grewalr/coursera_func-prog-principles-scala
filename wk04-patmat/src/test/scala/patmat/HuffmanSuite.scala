@@ -44,6 +44,11 @@ class HuffmanSuite extends FunSuite
     }
   }
 
+  test("frequency pairs")
+  {
+    println(times("HelloWorld".toList))
+  }
+
   test("string2chars(\"hello, world\")")
   {
     assert(string2Chars("hello, world") === List('h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'))
