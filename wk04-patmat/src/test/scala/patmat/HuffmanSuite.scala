@@ -46,7 +46,7 @@ class HuffmanSuite extends FunSuite
 
   test("frequency pairs")
   {
-    println(times("HelloWorld".toList))
+    assert(times("HelloWorld".toList) === List(('H',1), ('e',1), ('l',3), ('o',2), ('W',1), ('r',1), ('d',1)))
   }
 
   test("string2chars(\"hello, world\")")
@@ -70,12 +70,17 @@ class HuffmanSuite extends FunSuite
   test("Create a sample codetree")
   {
     val stringChars = string2Chars("hello, world")
-    println(createCodeTree(stringChars))
+    assert(createCodeTree(stringChars) === Fork(Fork(Fork(Fork(Fork(Fork(Fork(Fork(Leaf('h',1),Leaf('e',1),List('h', 'e'),2),Leaf(',',1),List('h', 'e', ','),3),Leaf(' ',1),List('h', 'e', ',', ' '),4),Leaf('w',1),List('h', 'e', ',', ' ', 'w'),5),Leaf('r',1),List('h', 'e', ',', ' ', 'w', 'r'),6),Leaf('d',1),List('h', 'e', ',', ' ', 'w', 'r', 'd'),7),Leaf('o',2),List('h', 'e', ',', ' ', 'w', 'r', 'd', 'o'),9),Leaf('l',3),List('h', 'e', ',', ' ', 'w', 'r', 'd', 'o', 'l'),12))
   }
 
   test("Decoded secret")
   {
-    println(decodedSecret)
+    assert(decodedSecret === string2Chars("huffmanestcool"))
+  }
+
+  test("encode text")
+  {
+    assert(encode(frenchCode)(string2Chars("huffmanestcool")) === secret)
   }
 
 
@@ -86,7 +91,4 @@ class HuffmanSuite extends FunSuite
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
     }
   }
-
-
-
 }
