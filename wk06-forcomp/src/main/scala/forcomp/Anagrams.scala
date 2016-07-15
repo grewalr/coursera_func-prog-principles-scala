@@ -1,6 +1,5 @@
 package forcomp
 
-
 object Anagrams {
 
   /** A word is simply a `String`. */
@@ -109,7 +108,9 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences =
+    x.map(z => (z._1, z._2 - y.find(a => a._1 == z._1).getOrElse(('_', 0))._2)).filter(_._2 != 0)
+
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
@@ -151,5 +152,20 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] =
+  {
+    def loop(occurrences: Occurrences): List[Sentence] = occurrences match
+    {
+      case List() => List(Nil)
+      case _ =>
+        for
+        {
+          combinations <- combinations(occurrences)
+          wordsFromDictionary <- dictionaryByOccurrences.getOrElse(combinations, List())
+          sentence <- loop(subtract(occurrences, combinations))
+        } yield wordsFromDictionary :: sentence
+    }
+
+    loop(sentenceOccurrences(sentence))
+  }
 }
